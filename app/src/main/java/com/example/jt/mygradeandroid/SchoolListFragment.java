@@ -1,9 +1,6 @@
 package com.example.jt.mygradeandroid;
 
 import android.app.Fragment;
-import android.app.ListFragment;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,25 +34,14 @@ import java.util.HashMap;
  */
 public class SchoolListFragment extends Fragment {
 
-    ListView listView;
-    String[] listViewContent;
-
-    // URL to get contacts JSON
-    public static final String schoolUrl = "http://localhost:8080/wenservice/services/Connectionserver?wsdl";
-    public static final String NAMESPACE = "http://pkg";
-    public static final String SOAP_ACTION_PREFIX = "/";
-    private static final String METHOD = "get";
-
-    // JSON Node names
-    private static final String TAG_CONTACTS = "contacts";
-    private static final String TAG_ID = "id";
     private static final String TAG_SCHOOL_NAME = "SchoolName";
+    private static final String TAG_SCHOOL_STATE = "State";
+    private static final String TAG_SCHOOL_CITY = "City";
+    private static final String TAG_SCHOOL_ID = "SchoolID";
+    private static final String TAG_STUDENT_ID = "StudentID";
 
-    // contacts JSONArray
-    JSONArray contacts = null;
-
-    // Hashmap for ListView
-    ArrayList<HashMap<String, String>> contactList;
+    ListView listView;
+    ArrayList<HashMap<String, String>> schoolList;
 
 
     @Nullable
@@ -66,27 +51,8 @@ public class SchoolListFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragmentschools, container, false);
         listView = (ListView) rootview.findViewById(R.id.schools_list);
 
-        contactList = new ArrayList<HashMap<String, String>>();
+        schoolList = new ArrayList<HashMap<String, String>>();
 
-//        // Listview on item click listener
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                // getting values from selected ListItem
-//                String name = ((TextView) view.findViewById(R.id.name))
-//                        .getText().toString();
-//                // Starting single contact activity
-//                Intent in = new Intent(getApplicationContext(),
-//                        SingleClassActivity.class);
-//                in.putExtra(TAG_NAME, name);
-//                startActivity(in);
-//
-//            }
-//        });
-
-        // Calling async task to get json
         GetContacts getter = new GetContacts();
         getter.execute();
 
@@ -98,47 +64,43 @@ public class SchoolListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        listViewContent = new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, listViewContent);
-
-        //listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int duration = Toast.LENGTH_SHORT;
 
-                String toastStr = listViewContent[position];
+                HashMap<String, String> school = schoolList.get(position);
+                String schoolName = school.get(TAG_SCHOOL_NAME);
+                String schoolState = school.get(TAG_SCHOOL_STATE);
+                String schoolCity = school.get(TAG_SCHOOL_CITY);
+                Integer schoolID = Integer.decode(school.get(TAG_SCHOOL_ID));
+                Integer studentID = Integer.decode(school.get(TAG_STUDENT_ID));
 
-                ;
-                Toast toast = Toast.makeText(getActivity(), toastStr, duration);
+                Intent intent = new Intent(getActivity(), SemesterActivity.class);
+
+                Toast toast = Toast.makeText(getActivity(), schoolName, duration);
+                intent.putExtra("SchoolID", schoolID);
+                intent.putExtra("StudentID", studentID);
+
+                startActivity(intent);
+
                 toast.show();
             }
-
         });
     }
-
 
     /**
      * Async task class to get json by making HTTP call
      */
     private class GetContacts extends AsyncTask<Void, Void, Void> {
 
+        public static final String SCHOOL_WEBSERVICE_URL = "http://ec2-52-25-2-234.us-west-2.compute.amazonaws.com/MyGradeService/api/School";
+
         @Override
         protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            //ServiceHandler sh = new ServiceHandler();
-
-            // Making a request to url and getting response
-            //String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
-
             String jsonStr = "";
             try {
-
-                URL url = new URL(schoolUrl);
+                URL url = new URL(SCHOOL_WEBSERVICE_URL);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
@@ -149,8 +111,8 @@ public class SchoolListFragment extends Fragment {
                 conn.connect();
 
                 int response = conn.getResponseCode();
-
                 Log.e("DYLAN", "The response is: " + response);
+
                 InputStream is = conn.getInputStream();
 
                 BufferedReader r = new BufferedReader(new InputStreamReader(is));
@@ -161,37 +123,35 @@ public class SchoolListFragment extends Fragment {
                 }
 
                 jsonStr = total.toString();
+            } catch (Exception e) {
+                Log.e("DYLAN", e.getMessage());
             }
-            catch (Exception e)
-            {
-                //return e.getMessage();
-            }
-
-
-
-            Log.d("Response: ", "> " + jsonStr);
 
             if (jsonStr != null) {
+                jsonStr = "{\"schools\": " + jsonStr + " }";
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    // Getting JSON Array node
-                    contacts = jsonObj.getJSONArray(TAG_CONTACTS);
+                    JSONArray schools = jsonObj.getJSONArray("schools");
 
-                    // looping through All Contacts
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
+                    for (int i = 0; i < schools.length(); i++) {
+                        JSONObject c = schools.getJSONObject(i);
 
-                        String id = c.getString(TAG_ID);
                         String name = c.getString(TAG_SCHOOL_NAME);
-                        // tmp hashmap for single contact
-                        HashMap<String, String> contact = new HashMap<String, String>();
+                        String state = c.getString(TAG_SCHOOL_STATE);
+                        String city = c.getString(TAG_SCHOOL_CITY);
+                        Integer schoolID = c.getInt(TAG_SCHOOL_ID);
+                        Integer studentID = c.getInt(TAG_STUDENT_ID);
 
-                        // adding each child node to HashMap key => value
-                        contact.put(TAG_ID, id);
-                        contact.put(TAG_SCHOOL_NAME, name);
-                        // adding contact to contact list
-                        contactList.add(contact);
+                        HashMap<String, String> school = new HashMap<String, String>();
+
+                        school.put(TAG_SCHOOL_NAME, name);
+                        school.put(TAG_SCHOOL_STATE, state);
+                        school.put(TAG_SCHOOL_CITY, city);
+                        school.put(TAG_SCHOOL_ID, Integer.toString(schoolID));
+                        school.put(TAG_STUDENT_ID, Integer.toString(studentID));
+
+                        schoolList.add(school);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -206,11 +166,11 @@ public class SchoolListFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            ListAdapter adapter = new SimpleAdapter(getContext(), contactList,
+            ListAdapter adapter = new SimpleAdapter(getActivity(), schoolList,
                     R.layout.school_list_item_layout,
-                    new String[]{TAG_SCHOOL_NAME},
-                    new int[]{R.id.school_list_item_name});
-
+                    new String[]{TAG_SCHOOL_NAME, TAG_SCHOOL_STATE, TAG_SCHOOL_CITY},
+                    new int[]{R.id.school_list_item_name, R.id.state_list_item_name, R.id.city_list_item_name
+                    });
             listView.setAdapter(adapter);
         }
     }
