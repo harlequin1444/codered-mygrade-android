@@ -53,23 +53,15 @@ public class GradeActivity extends AppCompatActivity {
         Integer classID = intent.getIntExtra("ClassID", 0);
         gradeList = new ArrayList<HashMap<String, String>>();
         lView = (ListView)findViewById(R.id.semester_list);
-//        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (parent.getAdapter().getCount() - 1 == position) {
-//                    Intent addClass = new Intent(parent.getContext(), AddClassActivity.class);
-//                    startActivity(addClass);
-//                } else {
-//                    HashMap<String, String> school = classList.get(position);
-//                    Integer classID = Integer.decode(school.get(TAG_CLASSID));
-//
-//                    Intent intent = new Intent(parent.getContext(), GradeActivity.class);
-//                    intent.putExtra("ClassID", classID);
-//
-//                    startActivity(intent);
-//                }
-//            }
-//        });
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getAdapter().getCount() - 1 == position) {
+                    Intent addGrade = new Intent(parent.getContext(), AddGradeActivity.class);
+                    startActivity(addGrade);
+                }
+            }
+        });
         (new GetClasses()).execute(classID);
     }
 
@@ -117,7 +109,7 @@ public class GradeActivity extends AppCompatActivity {
                     JSONArray grades = jsonObj.getJSONArray("Grades");
 
                     HashMap<String, String> homeworkHeader = new HashMap<String, String>();
-                    homeworkHeader.put(TAG_ASSIGNMENTNAME, "HOMEWORK");
+                    homeworkHeader.put(TAG_ASSIGNMENTNAME, "Homework");
                     gradeList.add(homeworkHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
@@ -133,13 +125,13 @@ public class GradeActivity extends AppCompatActivity {
                     }
 
                     HashMap<String, String> quizHeader = new HashMap<String, String>();
-                    quizHeader.put(TAG_ASSIGNMENTNAME, "QUIZES");
+                    quizHeader.put(TAG_ASSIGNMENTNAME, "Quizes");
                     gradeList.add(quizHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        if (c.getString(TAG_ASSIGNMENTTYPE) == "quiz") {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Quizes") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
@@ -155,7 +147,7 @@ public class GradeActivity extends AppCompatActivity {
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        if (c.getString(TAG_ASSIGNMENTTYPE) == "quiz") {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Final") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
@@ -165,13 +157,13 @@ public class GradeActivity extends AppCompatActivity {
                     }
 
                     HashMap<String, String> midtermHeader = new HashMap<String, String>();
-                    midtermHeader.put(TAG_ASSIGNMENTNAME, "QUIZES");
+                    midtermHeader.put(TAG_ASSIGNMENTNAME, "Midterm");
                     gradeList.add(midtermHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        if (c.getString(TAG_ASSIGNMENTTYPE) == "quiz") {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Midterm") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
@@ -181,13 +173,13 @@ public class GradeActivity extends AppCompatActivity {
                     }
 
                     HashMap<String, String> projectHeader = new HashMap<String, String>();
-                    projectHeader.put(TAG_ASSIGNMENTNAME, "QUIZES");
+                    projectHeader.put(TAG_ASSIGNMENTNAME, "Project");
                     gradeList.add(projectHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        if (c.getString(TAG_ASSIGNMENTTYPE) == "quiz") {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Project") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
@@ -195,6 +187,11 @@ public class GradeActivity extends AppCompatActivity {
                             gradeList.add(grade);
                         }
                     }
+
+                    HashMap<String, String> addGrade = new HashMap<String, String>();
+                    addGrade.put(TAG_ASSIGNMENTNAME, "Add New Grade");
+                    gradeList.add(addGrade);
+
 
                 } catch (JSONException e) {
                     Log.e("DYLAN", "json errer: " + e.getMessage());

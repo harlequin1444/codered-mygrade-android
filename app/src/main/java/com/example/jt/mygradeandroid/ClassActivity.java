@@ -156,6 +156,11 @@ public class ClassActivity extends AppCompatActivity {
 
                         classList.add(school);
                     }
+
+                    HashMap<String, String> addClass = new HashMap<String, String>();
+                    addClass.put(TAG_CLASSNAME, "Add New Class");
+                    classList.add(addClass);
+
                 } catch (JSONException e) {
                     Log.e("DYLAN", "json errer: " + e.getMessage());
                 }

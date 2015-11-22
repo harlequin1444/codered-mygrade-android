@@ -45,16 +45,15 @@ public class AddSchoolActivity extends AppCompatActivity {
         EditText state = (EditText) findViewById(R.id.txtState);
         EditText city = (EditText) findViewById(R.id.txtCity);
 
-        String json = "{ \"school\": " +
+        String json = "{ \"newSchool\": " +
                 "{ " +
-                "\"StudentID\": \"" + studentID +
-                "\", \"SchoolName\": \"" + name.getText() +
+                "\"StudentID\": " + studentID +
+                ", \"SchoolName\": \"" + name.getText() +
                 "\", \"City\": \"" + city.getText() +
                 "\", \"State\": \"" + state.getText() +
-                "}}";
+                "\"}}";
         (new InsertSchool()).execute(json);
     }
-
 
     private class InsertSchool extends AsyncTask<String, Void, Void> {
 
@@ -90,6 +89,8 @@ public class AddSchoolActivity extends AppCompatActivity {
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(json[0]);
+                Log.e("DYLAN", "json: " + json[0]);
+
 
                 writer.flush();
                 writer.close();
