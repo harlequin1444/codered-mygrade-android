@@ -1,11 +1,7 @@
 package com.example.jt.mygradeandroid;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,7 +32,8 @@ public class SchoolActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.contentFrame,new fragmentschools()).commit();
+        SchoolListFragment fschools =  new SchoolListFragment();
+        fm.beginTransaction().replace(R.id.contentFrame, fschools).commit();
     }
 
     @Override
@@ -82,12 +79,12 @@ public class SchoolActivity extends AppCompatActivity
             //Intent SemesterActivity = new Intent(SchoolActivity.this, SemesterActivity.class);
             //SchoolActivity.this.startActivity(SemesterActivity);
 
-            fm.beginTransaction().replace(R.id.contentFrame,new fragmentschools()).commit();
+            fm.beginTransaction().replace(R.id.contentFrame,new SchoolListFragment()).commit();
         } else if (id == R.id.nav_gallery) {
 
             //Intent GpaActivity = new Intent(SchoolActivity.this, GpaActivity.class);
             //SchoolActivity.this.startActivity(GpaActivity);
-            fm.beginTransaction().replace(R.id.contentFrame,new fragmentgpa()).commit();
+            fm.beginTransaction().replace(R.id.contentFrame,new GpaFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
