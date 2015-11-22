@@ -42,9 +42,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Semester"
         android:id="@+id/lblSemester"
+        android:layout_marginBottom="68dp"
         android:layout_alignBottom="@+id/sprSemester"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="78dp" />
+        android:layout_alignRight="@+id/btnAdd"
+        android:layout_alignEnd="@+id/btnAdd" />
 
     <TextView
         android:layout_width="wrap_content"
