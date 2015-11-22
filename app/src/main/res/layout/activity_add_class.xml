@@ -89,39 +89,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="First Exam"
-        android:id="@+id/lblFirstExam"
+        android:text="Midterm Exam"
+        android:id="@+id/lblMidtermExam"
         android:layout_below="@+id/lblQuiz"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Second Exam"
-        android:id="@+id/lblSecondExam"
-        android:layout_below="@+id/lblFirstExam"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Third Exam"
-        android:id="@+id/lblThirdExam"
-        android:layout_below="@+id/lblSecondExam"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Fourth Exam"
-        android:id="@+id/lblFourthExam"
-        android:layout_below="@+id/lblThirdExam"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -131,17 +101,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Final Exam"
         android:id="@+id/lblFinalExam"
-        android:layout_below="@+id/lblFourthExam"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Project"
-        android:id="@+id/lblProject"
-        android:layout_below="@+id/lblFinalExam"
+        android:layout_below="@+id/lblMidtermExam"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -151,7 +111,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Other"
         android:id="@+id/lblOther"
-        android:layout_below="@+id/lblProject"
+        android:layout_below="@+id/lblFinalExam"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -185,7 +145,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/txtFirstExam"
-        android:layout_above="@+id/lblSecondExam"
+        android:layout_above="@+id/lblFinalExam"
         android:layout_alignRight="@+id/txtHomework"
         android:layout_alignEnd="@+id/txtHomework"
         android:layout_alignLeft="@+id/txtSecondExam"
@@ -197,10 +157,10 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/txtSecondExam"
-        android:layout_above="@+id/lblThirdExam"
+        android:layout_above="@+id/lblOther"
         android:layout_alignRight="@+id/txtHomework"
         android:layout_alignEnd="@+id/txtHomework"
-        android:layout_toEndOf="@+id/lblSecondExam"
+        android:layout_toEndOf="@+id/lblFinalExam"
         android:layout_alignLeft="@+id/lblTitle"
         android:layout_alignStart="@+id/lblTitle" />
 
@@ -210,59 +170,11 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/txtThirdExam"
-        android:layout_above="@+id/lblFourthExam"
-        android:layout_alignRight="@+id/txtSecondExam"
-        android:layout_alignEnd="@+id/txtSecondExam"
-        android:layout_alignLeft="@+id/txtFinalExam"
-        android:layout_alignStart="@+id/txtFinalExam" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/txtFourthExam"
-        android:layout_alignBottom="@+id/lblFourthExam"
-        android:layout_alignRight="@+id/txtThirdExam"
-        android:layout_alignEnd="@+id/txtThirdExam"
-        android:layout_alignLeft="@+id/txtFinalExam"
-        android:layout_alignStart="@+id/txtFinalExam" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/txtFinalExam"
-        android:layout_above="@+id/lblProject"
-        android:layout_alignRight="@+id/txtSecondExam"
-        android:layout_alignEnd="@+id/txtSecondExam"
-        android:layout_alignLeft="@+id/txtProject"
-        android:layout_alignStart="@+id/txtProject" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/txtProject"
-        android:layout_alignBottom="@+id/lblProject"
-        android:layout_alignRight="@+id/txtSecondExam"
-        android:layout_alignEnd="@+id/txtSecondExam"
-        android:layout_alignLeft="@+id/txtOther"
-        android:layout_alignStart="@+id/txtOther" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/txtOther"
         android:layout_alignBottom="@+id/lblOther"
-        android:layout_alignRight="@+id/txtSecondExam"
-        android:layout_alignEnd="@+id/txtSecondExam"
-        android:layout_alignLeft="@+id/lblTitle"
-        android:layout_alignStart="@+id/lblTitle" />
+        android:layout_alignLeft="@+id/btnAdd"
+        android:layout_alignStart="@+id/btnAdd"
+        android:layout_toLeftOf="@+id/textView9"
+        android:layout_toStartOf="@+id/textView9" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -324,54 +236,14 @@
         android:layout_toRightOf="@+id/txtSecondExam"
         android:layout_toEndOf="@+id/txtSecondExam" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="%"
-        android:id="@+id/textView11"
-        android:layout_alignBottom="@+id/txtFourthExam"
-        android:layout_toRightOf="@+id/txtThirdExam"
-        android:layout_toEndOf="@+id/txtThirdExam" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="%"
-        android:id="@+id/textView12"
-        android:layout_alignBottom="@+id/txtFinalExam"
-        android:layout_toRightOf="@+id/txtFourthExam"
-        android:layout_toEndOf="@+id/txtFourthExam" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="%"
-        android:id="@+id/textView13"
-        android:layout_alignBottom="@+id/txtProject"
-        android:layout_toRightOf="@+id/txtFinalExam"
-        android:layout_toEndOf="@+id/txtFinalExam" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="%"
-        android:id="@+id/textView14"
-        android:layout_alignBottom="@+id/txtOther"
-        android:layout_toRightOf="@+id/txtProject"
-        android:layout_toEndOf="@+id/txtProject" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
         android:id="@+id/btnAdd"
-        android:layout_below="@+id/txtOther"
+        android:onClick="insertNewClass"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:onClick="insertNewClass"/>
+        android:layout_marginBottom="72dp" />
 
 </RelativeLayout>
