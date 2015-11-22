@@ -20,6 +20,14 @@
         </activity>
         <activity android:name=".SemesterActivity" >
         </activity>
+        <activity android:name=".AddSchoolActivity" >
+        </activity>
+        <activity android:name=".AddSemesterActivity" >
+        </activity>
+        <activity android:name=".AddClassActivity" >
+        </activity>
+        <activity android:name=".AddGradeActivity" >
+        </activity>
     </application>
 
 </manifest>
