@@ -6,38 +6,10 @@
     android:layout_height="match_parent"
     android:id="@+id/schools_list"    >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gpa_list_item_name"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_weight="1"
-            android:id="@+id/gpa_list_item_name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-
-            android:text="Left Aligned"
-            />
-
-        <!--<TextView-->
-            <!--android:id="@+id/separator"-->
-            <!--style="?android:attr/listSeparatorTextViewStyle"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@android:color/black" />-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_weight="1"
-            android:id="@+id/gpa_list_item_gpa"
-            android:text="Right Aligned"
-            />
-    </LinearLayout>
 
 </LinearLayout>

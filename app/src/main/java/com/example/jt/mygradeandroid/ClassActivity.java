@@ -157,6 +157,9 @@ public class ClassActivity extends AppCompatActivity {
                         classList.add(school);
                     }
 
+                    HashMap<String, String> addClass = new HashMap<String, String>();
+                    addClass.put(TAG_CLASSNAME, "Add New Class");
+                    classList.add(addClass);
 
                 } catch (JSONException e) {
                     Log.e("DYLAN", "json errer: " + e.getMessage());
@@ -164,10 +167,6 @@ public class ClassActivity extends AppCompatActivity {
             } else {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
             }
-
-            HashMap<String, String> addClass = new HashMap<String, String>();
-            addClass.put(TAG_CLASSNAME, "Add New Class");
-            classList.add(addClass);
 
             return null;
         }

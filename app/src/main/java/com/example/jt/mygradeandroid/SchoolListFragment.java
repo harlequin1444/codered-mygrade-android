@@ -151,7 +151,7 @@ public class SchoolListFragment extends Fragment {
 
                     HashMap<String, String> addschool = new HashMap<String, String>();
 
-                    addschool.put(TAG_SCHOOL_NAME, "New School");
+                    addschool.put(TAG_SCHOOL_STATE, "New School");
 
                     schoolList.add(addschool);
 

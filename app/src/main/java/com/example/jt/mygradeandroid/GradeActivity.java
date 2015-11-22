@@ -75,7 +75,7 @@ public class GradeActivity extends AppCompatActivity {
 
             String jsonStr = "";
             try {
-                String queryStr = GRADE_WEBSERVICE_URL; // + "/" + Integer.toString(queryClassID);
+                String queryStr = GRADE_WEBSERVICE_URL + "/" + Integer.toString(queryClassID);
                 URL url = new URL(queryStr);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -108,48 +108,33 @@ public class GradeActivity extends AppCompatActivity {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONArray grades = jsonObj.getJSONArray("Grades");
 
-                    Log.e("DYLAN", grades.toString());
-
-
                     HashMap<String, String> homeworkHeader = new HashMap<String, String>();
-                    //omeworkHeader.put(TAG_ASSIGNMENTNAME, "");
                     homeworkHeader.put(TAG_ASSIGNMENTNAME, "Homework");
-                    //homeworkHeader.put(TAG_ASSIGNMENTNAME, "");
                     gradeList.add(homeworkHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        String type = c.getString(TAG_ASSIGNMENTTYPE);
-                        if (type.contains("Homework")) {
-
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Homework") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
-                            Integer gradeInt = c.getInt(TAG_ASSIGNMENTGRADE);
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
-                            grade.put(TAG_ASSIGNMENTGRADE, Integer.toString(gradeInt));
 
                             gradeList.add(grade);
                         }
                     }
 
                     HashMap<String, String> quizHeader = new HashMap<String, String>();
-                    //quizHeader.put(TAG_ASSIGNMENTNAME, "");
                     quizHeader.put(TAG_ASSIGNMENTNAME, "Quizes");
-                    //quizHeader.put(TAG_ASSIGNMENTNAME, "");
                     gradeList.add(quizHeader);
 
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        String type = c.getString(TAG_ASSIGNMENTTYPE);
-                        if (type.contains("Quiz")) {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Quizes") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
-                            Integer gradeInt = c.getInt(TAG_ASSIGNMENTGRADE);
-
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
-                            grade.put(TAG_ASSIGNMENTGRADE, Integer.toString(gradeInt));
 
                             gradeList.add(grade);
                         }
@@ -162,14 +147,10 @@ public class GradeActivity extends AppCompatActivity {
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        String type = c.getString(TAG_ASSIGNMENTTYPE);
-                        if (type.contains("Final")) {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Final") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
-                            Integer gradeInt = c.getInt(TAG_ASSIGNMENTGRADE);
-
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
-                            grade.put(TAG_ASSIGNMENTGRADE, Integer.toString(gradeInt));
 
                             gradeList.add(grade);
                         }
@@ -182,14 +163,10 @@ public class GradeActivity extends AppCompatActivity {
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        String type = c.getString(TAG_ASSIGNMENTTYPE);
-                        if (type.contains("Midterm")) {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Midterm") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
-                            Integer gradeInt = c.getInt(TAG_ASSIGNMENTGRADE);
-
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
-                            grade.put(TAG_ASSIGNMENTGRADE, Integer.toString(gradeInt));
 
                             gradeList.add(grade);
                         }
@@ -202,14 +179,10 @@ public class GradeActivity extends AppCompatActivity {
                     for (int i = 0; i < grades.length(); i++) {
                         JSONObject c = grades.getJSONObject(i);
 
-                        String type = c.getString(TAG_ASSIGNMENTTYPE);
-                        if (type.contains("Project")) {
+                        if (c.getString(TAG_ASSIGNMENTTYPE) == "Project") {
                             String assName = c.getString(TAG_ASSIGNMENTNAME);
-                            Integer gradeInt = c.getInt(TAG_ASSIGNMENTGRADE);
-
                             HashMap<String, String> grade = new HashMap<String, String>();
                             grade.put(TAG_ASSIGNMENTNAME, assName);
-                            grade.put(TAG_ASSIGNMENTGRADE, Integer.toString(gradeInt));
 
                             gradeList.add(grade);
                         }
@@ -236,8 +209,8 @@ public class GradeActivity extends AppCompatActivity {
 
             ListAdapter adapter = new SimpleAdapter(getBaseContext(), gradeList,
                     R.layout.grades_list_item_layout,
-                    new String[]{TAG_ASSIGNMENTNAME, TAG_ASSIGNMENTGRADE},
-                    new int[]{R.id.homework_list_item_name, R.id.homework_list_item_grade
+                    new String[]{TAG_ASSIGNMENTNAME},
+                    new int[]{R.id.homework_list_item_name
                     });
             lView.setAdapter(adapter);
         }

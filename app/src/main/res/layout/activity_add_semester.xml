@@ -16,16 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Semester"
-        android:id="@+id/lblSemester"
-        android:layout_marginBottom="68dp"
-        android:layout_alignBottom="@+id/sprSemester"
-        android:layout_alignRight="@+id/btnAdd"
-        android:layout_alignEnd="@+id/btnAdd" />
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,15 +31,23 @@
         android:layout_height="wrap_content"
         android:id="@+id/sprYear"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/lblSemester"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/sprSemester"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="82dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Semester"
+        android:id="@+id/lblSemester"
+        android:layout_marginBottom="68dp"
+        android:layout_alignBottom="@+id/sprSemester"
+        android:layout_alignRight="@+id/btnAdd"
+        android:layout_alignEnd="@+id/btnAdd" />
 
     <TextView
-        android:layout_below="@+id/sprYear"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
