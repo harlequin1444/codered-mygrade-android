@@ -8,11 +8,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
         android:id="@+id/semester_list_item_name"/>
-
-
-
 
 </LinearLayout>

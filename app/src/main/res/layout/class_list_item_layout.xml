@@ -4,13 +4,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/schools_list"    >
+    android:id="@+id/schools_list"
+    >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/class_list_item_name"/>
+        android:id="@+id/class_list_item_name"
+        android:textSize="30sp"
+        />
 
 
 </LinearLayout>

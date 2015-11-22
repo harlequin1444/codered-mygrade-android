@@ -7,6 +7,11 @@
     <ListView
         android:id="@+id/gpa_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:layout_height="35sp"
+        android:textSize="30sp"
+
+        >
     </ListView>
 </FrameLayout>

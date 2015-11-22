@@ -7,12 +7,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:touchscreenBlocksFocus="false">
+    android:touchscreenBlocksFocus="false"
+    android:foreground="@color/colorPrimary"
+    >
 
    <include
         layout="@layout/app_bar_school"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+       />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -21,7 +24,11 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_school"
-        app:menu="@menu/activity_school_drawer" />
+        app:menu="@menu/activity_school_drawer"
+
+
+        />
+    <!--android:background="@color/colorPrimary"-->
 
 
 

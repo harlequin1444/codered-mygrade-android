@@ -2,20 +2,39 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:id="@+id/schools_list"    >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/homework_list_item_name"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/quiz_list_item_name"/>-->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:id="@+id/homework_list_item_name"
+            android:textSize="30sp"
+            android:text="Left Aligned"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/homework_list_item_grade"
+            android:textSize="30sp"
+            android:text="Right Aligned"
+            />
+    </LinearLayout>
+
 
     <!--<TextView-->
         <!--android:layout_width="match_parent"-->

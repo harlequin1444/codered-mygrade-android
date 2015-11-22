@@ -14,25 +14,46 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SchoolActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:label="Schools"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SemesterActivity">
+        <activity android:name=".SemesterActivity"
+            android:label="Semesters"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".ClassActivity">
+        <activity android:name=".ClassActivity"
+            android:screenOrientation="portrait"
+            android:label="Classes" >
         </activity>
-        <activity android:name=".GradeActivity" />
-        <activity android:name=".AddSchoolActivity" >
+        <activity android:name=".GradeActivity"
+            android:screenOrientation="portrait"
+            android:label="Grades"
+            />
+        <activity android:name=".AddSchoolActivity"
+            android:screenOrientation="portrait"
+            android:label="Add School"
+            >
         </activity>
-        <activity android:name=".AddSemesterActivity" >
+        <activity android:name=".AddSemesterActivity"
+            android:screenOrientation="portrait"
+            android:label="Add Semester"
+            >
         </activity>
-        <activity android:name=".AddClassActivity" >
+        <activity android:name=".AddClassActivity"
+            android:screenOrientation="portrait"
+            android:label="Add Class"
+            >
         </activity>
-        <activity android:name=".AddGradeActivity" >
+        <activity android:name=".AddGradeActivity"
+            android:screenOrientation="portrait"
+            android:label="Add Grade"
+            >
         </activity>
     </application>
 
