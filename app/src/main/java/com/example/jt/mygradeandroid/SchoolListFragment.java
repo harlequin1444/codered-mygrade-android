@@ -85,6 +85,12 @@ public class SchoolListFragment extends Fragment {
                 startActivity(intent);
 
                 toast.show();
+                //launch new activity from fragment
+                if (position == parent.getCount()){
+                    Intent addSchool = new Intent(getActivity(), AddSchoolActivity.class);
+                    startActivity(addSchool);
+
+                }
             }
         });
     }
