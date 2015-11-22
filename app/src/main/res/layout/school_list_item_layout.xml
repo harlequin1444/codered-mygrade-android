@@ -7,9 +7,19 @@
     android:id="@+id/schools_list"    >
 
     <TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/school_list_item_name"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/school_list_item_name"/>
+        android:id="@+id/state_list_item_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/city_list_item_name"/>
 
 
 </LinearLayout>
