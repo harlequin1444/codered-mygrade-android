@@ -1,5 +1,7 @@
 package com.example.jt.mygradeandroid;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,14 +25,6 @@ public class SchoolActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +34,9 @@ public class SchoolActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.contentFrame,new fragmentschools()).commit();
     }
 
     @Override
@@ -79,19 +76,18 @@ public class SchoolActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentManager fm = getFragmentManager();
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            //Intent SemesterActivity = new Intent(SchoolActivity.this, SemesterActivity.class);
+            //SchoolActivity.this.startActivity(SemesterActivity);
+
+            fm.beginTransaction().replace(R.id.contentFrame,new fragmentschools()).commit();
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            //Intent GpaActivity = new Intent(SchoolActivity.this, GpaActivity.class);
+            //SchoolActivity.this.startActivity(GpaActivity);
+            fm.beginTransaction().replace(R.id.contentFrame,new fragmentgpa()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
