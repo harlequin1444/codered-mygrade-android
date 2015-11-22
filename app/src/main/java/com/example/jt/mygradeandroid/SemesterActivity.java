@@ -1,16 +1,15 @@
 package com.example.jt.mygradeandroid;
 
-import android.app.ActionBar;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SemesterActivity extends ListActivity {
+public class SemesterActivity extends AppCompatActivity {
 
     private static final String TAG_SEMESTER_YEAR = "SemesterYear";
     private static final String TAG_SEMESTER_TYPE = "SemesterType";
@@ -32,34 +31,58 @@ public class SemesterActivity extends ListActivity {
     private static final String TAG_SCHOOL_ID = "SchoolID";
     private static final String TAG_SEMESTER_ID = "SemesterID";
 
-    ListView listView;
     ArrayList<HashMap<String, String>> semesterList;
-
+    ListView lView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
-        Intent intent = getIntent();
-        Integer schoolID = intent.getIntExtra("SchoolID", 0);
-        Integer studentID = intent.getIntExtra("StudentID", 0);
+        //Toolbar t = (Toolbar)findViewById(R.id.toolbar2);
+//        t.setTitle("Semester");
 
-        // Set the text view as the activity layout
-//        setContentView(textView);
+        Intent intent = getIntent();
+        Integer schoolID = intent.getIntExtra("SemesterID", 0);
+        semesterList = new ArrayList<HashMap<String, String>>();
+        lView = (ListView)findViewById(R.id.semester_list);
+
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getAdapter().getCount() - 1 == position) {
+                    Intent addSemester = new Intent(parent.getContext(), AddSemesterActivity.class);
+                    startActivity(addSemester);
+                } else {
+                    HashMap<String, String> school = semesterList.get(position);
+                    //Integer schoolID = Integer.decode(school.get(TAG_SCHOOL_ID));
+                    Integer semesterID = Integer.decode(school.get(TAG_SEMESTER_ID));
+
+                    Intent intent = new Intent(parent.getContext(), ClassActivity.class);
+                    intent.putExtra("SchoolID", semesterID);
+
+                    startActivity(intent);
+                }
+            }
+        });
+
+        (new GetSemesters()).execute(schoolID);
     }
 
 
 
-    private class GetSemesters extends AsyncTask<Void, Void, Void> {
+    private class GetSemesters extends AsyncTask<Integer, Void, Void> {
 
         public static final String SCHOOL_WEBSERVICE_URL = "http://ec2-52-25-2-234.us-west-2.compute.amazonaws.com/MyGradeService/api/Semester";
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected Void doInBackground(Integer... args) {
+            Integer querySchoolID = args[0];
+
             String jsonStr = "";
             try {
-                URL url = new URL(SCHOOL_WEBSERVICE_URL);
+                String queryStr = SCHOOL_WEBSERVICE_URL; // + "/" + Integer.toString(querySchoolID);
+                URL url = new URL(queryStr);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
@@ -87,11 +110,11 @@ public class SemesterActivity extends ListActivity {
             }
 
             if (jsonStr != null) {
-                jsonStr = "{\"semesters\": " + jsonStr + " }";
+                //jsonStr = "{\"semesters\": " + jsonStr + " }";
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    JSONArray schools = jsonObj.getJSONArray("semesters");
+                    JSONArray schools = jsonObj.getJSONArray("Semesters");
 
                     for (int i = 0; i < schools.length(); i++) {
                         JSONObject c = schools.getJSONObject(i);
@@ -101,19 +124,24 @@ public class SemesterActivity extends ListActivity {
                         Integer schoolID = c.getInt(TAG_SCHOOL_ID);
                         Integer semesterID = c.getInt(TAG_SEMESTER_ID);
 
-                        HashMap<String, String> school = new HashMap<String, String>();
+                        HashMap<String, String> semester = new HashMap<String, String>();
 
-                        school.put(TAG_SEMESTER_YEAR, semesterYear);
-                        school.put(TAG_SEMESTER_TYPE, semesterType);
-                        school.put(TAG_SEMESTER_STR, semesterYear + " " + semesterType);
-                        school.put(TAG_SEMESTER_ID, Integer.toString(schoolID));
-                        school.put(TAG_SCHOOL_ID, Integer.toString(semesterID));
+                        semester.put(TAG_SEMESTER_YEAR, semesterYear);
+                        semester.put(TAG_SEMESTER_TYPE, semesterType);
+                        semester.put(TAG_SEMESTER_STR, semesterType + " " + semesterYear);
+                        semester.put(TAG_SEMESTER_ID, Integer.toString(schoolID));
+                        semester.put(TAG_SCHOOL_ID, Integer.toString(semesterID));
 
-
-                        semesterList.add(school);
+                        semesterList.add(semester);
                     }
+                    HashMap<String, String> addSem = new HashMap<String, String>();
+
+                    addSem.put(TAG_SEMESTER_STR, "Add New Semester");
+
+                    semesterList.add(addSem);
+
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("DYLAN", "json errer: " + e.getMessage());
                 }
             } else {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
@@ -125,13 +153,13 @@ public class SemesterActivity extends ListActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
- 
+
             ListAdapter adapter = new SimpleAdapter(getBaseContext(), semesterList,
-                    R.layout.school_list_item_layout,
+                    R.layout.semester_list_item_layout,
                     new String[]{TAG_SEMESTER_STR},
                     new int[]{R.id.semester_list_item_name
                     });
-            listView.setAdapter(adapter);
+            lView.setAdapter(adapter);
         }
     }
 }

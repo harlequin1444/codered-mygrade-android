@@ -67,29 +67,20 @@ public class SchoolListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int duration = Toast.LENGTH_SHORT;
-
-                HashMap<String, String> school = schoolList.get(position);
-                String schoolName = school.get(TAG_SCHOOL_NAME);
-                String schoolState = school.get(TAG_SCHOOL_STATE);
-                String schoolCity = school.get(TAG_SCHOOL_CITY);
-                Integer schoolID = Integer.decode(school.get(TAG_SCHOOL_ID));
-                Integer studentID = Integer.decode(school.get(TAG_STUDENT_ID));
-
-                Intent intent = new Intent(getActivity(), SemesterActivity.class);
-
-                Toast toast = Toast.makeText(getActivity(), schoolName, duration);
-                intent.putExtra("SchoolID", schoolID);
-                intent.putExtra("StudentID", studentID);
-
-                startActivity(intent);
-
-                toast.show();
-                //launch new activity from fragment
-                if (position == parent.getCount()){
+                if (listView.getAdapter().getCount() - 1 == position) {
                     Intent addSchool = new Intent(getActivity(), AddSchoolActivity.class);
-                    startActivity(addSchool);
+                    addSchool.putExtra("StudentID", 0);
 
+                    startActivity(addSchool);
+                } else {
+                    HashMap<String, String> school = schoolList.get(position);
+                    Integer schoolID = Integer.decode(school.get(TAG_SCHOOL_ID));
+                    //Integer studentID = Integer.decode(school.get(TAG_STUDENT_ID));
+
+                    Intent intent = new Intent(getActivity(), SemesterActivity.class);
+                    intent.putExtra("SchoolID", schoolID);
+
+                    startActivity(intent);
                 }
             }
         });
@@ -134,11 +125,9 @@ public class SchoolListFragment extends Fragment {
             }
 
             if (jsonStr != null) {
-                jsonStr = "{\"schools\": " + jsonStr + " }";
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
-
-                    JSONArray schools = jsonObj.getJSONArray("schools");
+                    JSONArray schools = jsonObj.getJSONArray("Schools");
 
                     for (int i = 0; i < schools.length(); i++) {
                         JSONObject c = schools.getJSONObject(i);
@@ -159,6 +148,13 @@ public class SchoolListFragment extends Fragment {
 
                         schoolList.add(school);
                     }
+
+                    HashMap<String, String> addschool = new HashMap<String, String>();
+
+                    addschool.put(TAG_SCHOOL_STATE, "New School");
+
+                    schoolList.add(addschool);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
